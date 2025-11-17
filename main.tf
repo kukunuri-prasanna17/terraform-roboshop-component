@@ -61,8 +61,6 @@ resource "aws_ami_from_instance" "main" {
 }
 
 
-
-
 resource "aws_lb_target_group" "main" {
   name     = "${local.common_name_suffix}- ${var.component}"
   port     = 80
