@@ -79,9 +79,9 @@ resource "aws_lb_target_group" "main" {
     unhealthy_threshold = 2   # failure
   }
 }
-
+s
 resource "aws_launch_template" "main" {
-  name = "${local.common_name_suffix}- ${var.component}"
+  name = "${local.common_name_suffix}-${var.component}"
   image_id = aws_ami_from_instance.main.id
 
   instance_initiated_shutdown_behavior = "terminate"   # terminating instance without stopping, Once it's complete all tasks
@@ -99,7 +99,7 @@ resource "aws_launch_template" "main" {
     tags = merge(
       local.common_tags,
       {
-        Name = "${local.common_name_suffix}- ${var.component}"
+        Name = "${local.common_name_suffix}-${var.component}"
       }
     )
   }
@@ -111,7 +111,7 @@ resource "aws_launch_template" "main" {
     tags = merge(
       local.common_tags,
       {
-        Name = "${local.common_name_suffix}- ${var.component}"
+        Name = "${local.common_name_suffix}-${var.component}"
       }
     )
   }
@@ -127,7 +127,7 @@ resource "aws_launch_template" "main" {
 }
 
 resource "aws_autoscaling_group" "main" {
-  name                      = "${local.common_name_suffix}- ${var.component}"
+  name                      = "${local.common_name_suffix}-${var.component}"
   max_size                  = 10
   min_size                  = 1
   health_check_grace_period = 100    # cooling period before running health check
@@ -153,7 +153,7 @@ resource "aws_autoscaling_group" "main" {
     for_each = merge(
       local.common_tags,
       {
-        Name = "${local.common_name_suffix}- ${var.component}"
+        Name = "${local.common_name_suffix}-${var.component}"
       }
     )
     content {
@@ -172,7 +172,7 @@ resource "aws_autoscaling_group" "main" {
 
 resource "aws_autoscaling_policy" "main" {
   autoscaling_group_name = aws_autoscaling_group.main.name
-  name                   = "${local.common_name_suffix}- ${var.component}"
+  name                   = "${local.common_name_suffix}-${var.component}"
   policy_type            = "TargetTrackingScaling"
 
   target_tracking_configuration {
