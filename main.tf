@@ -28,15 +28,14 @@ resource "terraform_data" "main" {
 
   # terraform copies this file to catalogue server
   provisioner "file" {
-    source = "catalogue.sh"
-    destination = "/tmp/catalogue.sh"
+    source = "bootstrap.sh"
+    destination = "/tmp/bootstrap.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
-        "chmod +x /tmp/catalogue.sh",
-        # "sudo sh /tmp/catalogue.sh"
-        "sudo sh /tmp/catalogue.sh catalogue ${var.environment}"
+        "chmod +x /tmp/bootstrap.sh",
+        "sudo sh /tmp/bootstrap.sh ${var.component} ${var.environment}"
     ]
   }
 }
