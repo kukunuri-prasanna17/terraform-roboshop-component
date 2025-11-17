@@ -79,7 +79,7 @@ resource "aws_lb_target_group" "main" {
     unhealthy_threshold = 2   # failure
   }
 }
-s
+
 resource "aws_launch_template" "main" {
   name = "${local.common_name_suffix}-${var.component}"
   image_id = aws_ami_from_instance.main.id
